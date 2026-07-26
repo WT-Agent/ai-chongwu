@@ -1,0 +1,139 @@
+<div align="center">
+
+# 网腾无限AI - 科学宠物养护与健康照护专家
+
+**一个基于 Vue 3 + Vite + Vanilla CSS 构建的极简 AI 微应用，具备深色玻璃拟态自适应交互与微信端 H5 体验**
+
+[Vue 3] · [TypeScript] · [Vite] · [Vanilla CSS] · [开源协议 MIT]
+
+[![GitHub stars](https://img.shields.io/github/stars/WT-Agent/ai-chongwu?style=social)](https://github.com/WT-Agent/ai-chongwu)
+[![GitHub license](https://img.shields.io/github/license/WT-Agent/ai-chongwu)](https://github.com/WT-Agent/ai-chongwu/blob/main/LICENSE)
+
+[在线演示](#在线演示) · [核心功能](#核心功能) · [评估指标](#评估指标) · [快速启动](#快速启动) · [参与贡献](#参与贡献) · [支持一下](#支持一下)
+
+</div>
+
+## 关于我们
+
+团队成员均来自 C9 等顶尖学府，在字节、腾讯、阿里的工程师组成，全职创业研发开源 AI 应用产品，让所有人感受 AI 的魅力。
+
+本项目是网腾无限 AI 微应用的标准开发模料与应用架构，内置了毛玻璃深色主题样式系统、移动端与 PC 端自适应响应式框架、API 中转代理配置与流量裂变逻辑。
+
+**我们不搞概念，不卖课，只写能跑起来的代码。**
+
+欢迎 Star、Fork、提 Issue，一起让这个项目变得更好用。
+
+核心特性：
+- **极简自适应交互**：提供毛玻璃质感的深色玻璃拟态自适应 Web 界面，高度适配移动端 H5 微信浏览器与 PC 体验。
+- **一键零成本部署**：纯静态前端结构，支持零成本部署于 Vercel、GitHub Pages 或 CDN/OSS 静态托管服务。
+- **安全开发代理**：本地开发支持使用个人 API 密钥发起代理请求，密钥由 Vite 服务器中转，无需担心前端泄露。
+- **裂变解锁与留存**：内置微信朋友圈扫码分享拦截与额度重置机制，提升流量转化与留存。
+
+## 核心功能
+
+1. **宠物症状/需求诊断与科学原理解读**：分析宠物当前健康状态、异常行为诱因及动物行为心理学背景，帮助宠主科学理解爱宠的需求。
+2. **定制化喂养食谱与护理实操步骤**：提供营养配比、喂食量换算、驱虫洗护频次及分步护理指南，适配幼宠、成宠与老龄宠等不同成长阶段。
+3. **行为纠正训练与宠物心理抚慰方案**：给出非暴力正向强化训练方法、环境丰富化建议及减轻应激技巧，改善宠物不良习惯与焦虑状态。
+4. **健康风险预警与就医提醒警戒线**：列出危险禁忌食物、需要紧急送医的临床红线症状及居家观察指标，防范急性重症与健康隐患。
+
+## AI 评估指标
+
+本应用内置 5 大 AI 评估维度（CHONGWU_SCORES），严格评估生成方案的质量：
+
+1. **careScientificness (养护科学性)**：评估养护指导是否符合兽医学规范与现代宠物护理标准。
+2. **nutritionRigor (营养严谨度)**：评估日粮配比、热量换算与食材安全禁忌的严谨程度。
+3. **behaviorInsight (行为洞察力)**：评估对宠物行为诱因与心理应激状态分析的精准度。
+4. **healthRiskSensitivity (健康风险敏感度)**：评估对急重症红线症状与潜伏健康隐患识别的敏感性。
+5. **practicalOperability (实操可行性)**：评估分步护理指南与正向训练方法在居家环境下的易操作度。
+
+## 快速启动
+
+### 1. 克隆项目
+```bash
+git clone https://github.com/WT-Agent/ai-chongwu.git
+cd ai-chongwu
+```
+
+### 2. 安装依赖
+项目强制使用 pnpm 作为包管理器：
+```bash
+pnpm install
+```
+
+### 3. 配置本地开发环境变量
+复制并修改环境变量配置文件：
+```bash
+cp .env.example .env
+```
+根据微应用的功能类型，在 `.env` 中配置您的开发者密钥：
+- `DEEPSEEK_API_KEY`: 您的 DeepSeek 开发者 API 密钥（用于文本生成任务）
+- `DASHSCOPE_API_KEY`: 您的通义千问/通义万相开发者 API 密钥（用于多模态与生图任务）
+
+### 4. 启动本地开发服务
+```bash
+pnpm dev
+```
+启动成功后在浏览器访问控制台输出的地址即可。
+
+### 5. 生产构建打包
+```bash
+pnpm build
+```
+打包后生成的 `dist` 目录即为纯静态网页资源，可直接上传部署。
+
+## 脚手架集成说明
+
+本模板由私有总控仓库 `ai.wuxian.xyz` 中的 `@wuxian/cli` 脚手架统一管理，支持以下批量运维操作：
+
+### 初始化或更新单个子项目
+
+```bash
+node bin/cli.js ai-chongwu
+```
+
+脚手架将自动：
+1. 读取子仓库的 `README.md` 首行作为 Prompt 主题。
+2. 注入 Vue 3 静态页面结构及标准配置文件。
+3. 保留原有的 `.git` 配置与 `README.md`，不覆盖个性化内容。
+
+### 批量同步所有子项目
+
+```bash
+node bin/cli.js all
+```
+
+将模板的最新变更（如 SSO 逻辑、额度控制）一键同步至全部 31 个子项目。
+
+### Agent 配置维护接口
+
+```bash
+# 读取子项目配置
+node bin/cli.js get ai-chongwu
+
+# 写入/更新配置（支持热更新 prompt、model、title、temperature 等）
+node bin/cli.js set ai-chongwu prompt "你是一位执业兽医师..."
+node bin/cli.js set ai-chongwu model deepseek-chat
+```
+
+## 联系方式
+
+- GitHub Issues: [提交反馈](https://github.com/WT-Agent/ai-chongwu/issues)
+- 邮箱: us@wuxian.xyz
+
+## 打赏支持
+
+如果本项目对您有帮助，欢迎请作者喝杯咖啡。您的支持是持续维护与更新的动力。
+
+<div align="center">
+
+**微信支付** | **支付宝**
+:---:|:---:
+<img src="https://ai.wuxian.xyz/assets/tenpay.png" width="200" alt="微信支付"> | <img src="https://ai.wuxian.xyz/assets/alipay.png" width="200" alt="支付宝">
+
+</div>
+
+## 版权与许可
+
+本项目基于 MIT License 开源协议。
+
+Copyright (c) 2026. All rights reserved.
