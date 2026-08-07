@@ -2,10 +2,10 @@
   <section class="nomads-showcase-section">
     <div class="showcase-header">
       <div class="header-left">
-        <h2 class="showcase-title">宠物养护与健康照护实战模板库</h2>
-        <p class="showcase-subtitle">精选科学喂养、行为矫正与老龄护理，点击“一键套用”生成专业方案</p>
+        <h2 class="showcase-title">实战案例与模板库 (Nomads Showcase)</h2>
+        <p class="showcase-subtitle">精选高频实战场景，点击“一键套用”快速生成高质量结果</p>
       </div>
-      <span class="showcase-badge">已收录 {{ showcaseItems.length }} 个养护指南模板</span>
+      <span class="showcase-badge">已收录 {{ showcaseItems.length }} 个实战模板</span>
     </div>
 
     <div class="showcase-grid">
@@ -16,7 +16,7 @@
       >
         <div class="card-header">
           <span class="scenario-tag">{{ item.tag }}</span>
-          <span class="usage-count">{{ item.usageCount }} 次生成</span>
+          <span class="usage-count">{{ item.usageCount }} 次应用</span>
         </div>
 
         <div class="card-content">
@@ -41,8 +41,13 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
+const props = defineProps<{
+  appTitle?: string;
+  isImage?: boolean;
+}>();
+
 const emit = defineEmits<{
-  (e: 'apply-template', payload: { prompt: string; careType?: string; petType?: string }): void;
+  (e: 'apply-template', payload: { prompt: string; style?: string }): void;
 }>();
 
 export interface ShowcaseItem {
@@ -50,73 +55,105 @@ export interface ShowcaseItem {
   tag: string;
   title: string;
   prompt: string;
-  careType?: string;
-  petType?: string;
+  style?: string;
   usageCount: string;
 }
 
-const showcaseItems = computed<ShowcaseItem[]>(() => [
-  {
-    id: 'chongwu-1',
-    tag: '幼宠食谱',
-    title: '3个月幼猫离乳过渡食谱与发毛营养配比',
-    prompt: '为 3 个月英短幼猫制定科学离乳食谱，包含幼猫粮泡软过渡、主罐湿粮补充、钙质与 DHA 营养配比及每日喂食频次。',
-    careType: '科学喂养与食谱营养搭配',
-    petType: '猫咪 (猫主子)',
-    usageCount: '62.4k'
-  },
-  {
-    id: 'chongwu-2',
-    tag: '行为矫正',
-    title: '狗狗独自在家分离焦虑与吠叫拆家训练',
-    prompt: '边牧犬主人出门后频繁吠叫与撕咬沙发，提供正向强化响片训练、出游消耗体力及脱敏离家练习方案。',
-    careType: '异常行为与心理矫正指南',
-    petType: '狗狗 (汪星人)',
-    usageCount: '55.1k'
-  },
-  {
-    id: 'chongwu-3',
-    tag: '老龄照护',
-    title: '9岁老龄犬关节保健与易消化高蛋白饮食',
-    prompt: '针对 9 岁老龄金毛犬关节硬化与行动变慢，定制软骨素补充方案、易消化湿粮蒸肉及防滑居家环境改造。',
-    careType: '日常卫生洗护与健康护理',
-    petType: '狗狗 (汪星人)',
-    usageCount: '48.9k'
-  },
-  {
-    id: 'chongwu-4',
-    tag: '多猫应激',
-    title: '多猫家庭原住猫与新猫接引应激排便矫正',
-    prompt: '新猫到家后原住猫出现乱拉乱尿与躲藏行为，提供隔离分域、费洛蒙环境抚慰及同吃冻干建立正向联想步骤。',
-    careType: '异常行为与心理矫正指南',
-    petType: '猫咪 (猫主子)',
-    usageCount: '41.3k'
-  },
-  {
-    id: 'chongwu-5',
-    tag: '急救预警',
-    title: '狗狗误食巧克力/葡萄及夏季中暑急救',
-    prompt: '梳理狗狗绝对禁忌食物清单，列出误食巧克力与葡萄的催吐急救判断红线，以及炎热天气中暑物理降温指南。',
-    careType: '阶段疾病预警与急救常识',
-    petType: '狗狗 (汪星人)',
-    usageCount: '59.7k'
-  },
-  {
-    id: 'chongwu-6',
-    tag: '异宠养护',
-    title: '侏儒兔/仓鼠肠胃停滞预警与高纤维食谱',
-    prompt: '针对侏儒兔食欲减退与粪便变小，制定无限量提摩西草主食方案、化毛膏使用频次及肠胃停滞紧急就医标准。',
-    careType: '科学喂养与食谱营养搭配',
-    petType: '异宠 (兔子/仓鼠/鸟类)',
-    usageCount: '34.2k'
+// 模拟实战案例数据库（支持根据文本/图像类及应用主题切换）
+const showcaseItems = computed<ShowcaseItem[]>(() => {
+  if (props.isImage) {
+    return [
+      {
+        id: 'img-1',
+        tag: '写真肖像',
+        title: '商务精英形象照',
+        prompt: '高端写字楼背景，身穿深蓝色西装，眼神自信专注，赛博朋克光影效果',
+        style: '<photography>',
+        usageCount: '18.5k'
+      },
+      {
+        id: 'img-2',
+        tag: '概念插画',
+        title: '未来科幻城市海报',
+        prompt: '霓虹灯光的赛博朋克立体城市，飞行汽车，高品质概念插画，8k分辨率',
+        style: '<illustration>',
+        usageCount: '24.1k'
+      },
+      {
+        id: 'img-3',
+        tag: '二次元动漫',
+        title: '日系国潮动漫角色',
+        prompt: '穿着现代汉服的国风少年，手持纸伞，水彩漫感，唯美光感与柔光滤镜',
+        style: '<anime>',
+        usageCount: '15.9k'
+      },
+      {
+        id: 'img-4',
+        tag: '水彩艺术',
+        title: '治愈系自然风景画',
+        prompt: '晨雾中的森林湖泊，阳光穿透树林，水彩渐变质感，温馨治愈风格',
+        style: '<watercolor>',
+        usageCount: '12.3k'
+      }
+    ];
+  } else {
+    return [
+      {
+        id: 'text-1',
+        tag: '职场总结',
+        title: '周报 OKR 成果提炼',
+        prompt: '本周完成了核心模块优化与线上异常排查，请帮我梳理为具备量化指标的 OKR 汇报文案',
+        style: '专业干练，结果导向',
+        usageCount: '32.8k'
+      },
+      {
+        id: 'text-2',
+        tag: '高情商沟通',
+        title: '拒绝不合理加班话术',
+        prompt: '领导在周末突然布置非紧急任务，如何高情商、委婉且有理有据地推迟到工作日处理？',
+        style: '高情商，委婉，有情调',
+        usageCount: '28.4k'
+      },
+      {
+        id: 'text-3',
+        tag: '短视频文案',
+        title: '知识干货吸睛开头',
+        prompt: '准备制作一条关于高效学习法的短视频，设计 3 个能在前 3 秒留住用户的爆款口播开头',
+        style: '专业干练，结果导向',
+        usageCount: '45.1k'
+      },
+      {
+        id: 'text-4',
+        tag: '商务公文',
+        title: '跨部门协同申请函',
+        prompt: '因项目上线需要研发部门配合联调，撰写一份正式、严谨且明确时间节点的协同申请书',
+        style: '专业干练，结果导向',
+        usageCount: '19.7k'
+      },
+      {
+        id: 'text-5',
+        tag: '小红书种草',
+        title: '实战干货笔记排版',
+        prompt: '分享 5 个提升日常工作效率的文字工具，语言亲切，搭配吸引人的标题与 Emoji 排版',
+        style: '高情商，委婉，有情调',
+        usageCount: '36.2k'
+      },
+      {
+        id: 'text-6',
+        tag: '学术润色',
+        title: '论文摘要与结论重构',
+        prompt: '将以下粗糙的研究结论重写为学术规范、逻辑严密且无语法语病的论文摘要总结',
+        style: '专业干练，结果导向',
+        usageCount: '22.0k'
+      }
+    ];
   }
-]);
+});
 
 function applyTemplate(item: ShowcaseItem) {
   emit('apply-template', {
     prompt: item.prompt,
-    careType: item.careType,
-    petType: item.petType
+    style: item.style
   });
 }
 </script>
